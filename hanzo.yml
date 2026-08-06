@@ -1,0 +1,10 @@
+# Canonical CI/CD config for hanzoai/msw — read by hanzoai/ci (via
+# .hanzo/workflows/cicd.yml) and by platform.hanzo.ai.
+#
+# Library (npm). The gate is the real build: tsup over every entry (core,
+# browser, node, native, cli) plus the .d.ts patch step, which is what actually
+# ships and what fails when src/ breaks. The full `pnpm test` is out — it drives
+# playwright browsers and a memory-leak run, neither of which is a code gate.
+test:
+  - name: build
+    run: pnpm install --frozen-lockfile && pnpm build
